@@ -1,0 +1,148 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #e3e3e3;
+    font-family: "Noto+Sans", sans-serif;
+  }
+  
+  model-viewer {
+    background-color: #ffffff;
+    margin-bottom: 10px;
+  }
+
+  .progress-bar {
+    display: block;
+    width: 33%;
+    height: 10%;
+    max-height: 2%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    border-radius: 25px;
+    box-shadow: 0px 3px 10px 3px rgba(0, 0, 0, 0.5), 0px 0px 5px 1px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .progress-bar.hide {
+    visibility: hidden;
+    transition: visibility 0.3s;
+  }
+  
+  .update-bar {
+    background-color: rgba(255, 255, 255, 0.9);
+    width: 0%;
+    height: 100%;
+    border-radius: 25px;
+    float: left;
+    transition: width 0.3s;
+  }
+  
+  #ar-button {
+    width: 100%;
+    height: 60px;
+    background: #0072CE;
+    color: white;
+    font-size: 16px;
+    border: 0;
+    
+  }
+  
+  #container{
+    width: 90vw;
+    height: fit-content;
+
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    
+    margin: auto;
+}
+  
+  #product-image{
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+
+  #ar-button:active {
+    background-color: #E8EAED;
+  }
+  
+  #ar-button:focus {
+    outline: none;
+  }
+  
+  #ar-button:focus-visible {
+    outline: 1px solid #4285f4;
+  }
+  
+  @keyframes circle {
+    from { transform: translateX(-50%) rotate(0deg) translateX(50px) rotate(0deg); }
+    to   { transform: translateX(-50%) rotate(360deg) translateX(50px) rotate(-360deg); }
+  }
+  
+  @keyframes elongate {
+    from { transform: translateX(100px); }
+    to   { transform: translateX(-100px); }
+  }
+  
+  model-viewer > #ar-prompt {
+    position: absolute;
+    left: 50%;
+    bottom: 60px;
+    animation: elongate 2s infinite ease-in-out alternate;
+    display: none;
+  }
+  
+  model-viewer[ar-status="session-started"] > #ar-prompt {
+    display: block;
+  }
+  
+  model-viewer > #ar-prompt > img {
+    animation: circle 4s linear infinite;
+  }
+
+  @media (min-width: 100px) and (max-width: 500px) {
+    model-viewer {
+     display: none;
+     width: 90vw;
+     height: auto;
+    }
+
+    #product-image{
+        display: block;
+    }
+
+    
+  }
+
+  @media (min-width: 501px) and (max-width: 4000px) {
+    model-viewer {
+      display: block;
+      width: 480px;
+      height: 480px;
+    }
+
+    #container {
+        width: 480px;
+    }
+
+    #product-image{
+        display: none;
+    }
+
+    #ar-button{
+        display: none;
+    }
+
+    #instructions{
+        display: none;
+    }
+
+  }
