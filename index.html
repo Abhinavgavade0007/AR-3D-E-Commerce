@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>AR Product Viewer</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Explore products in Augmented Reality">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia|Roboto:400,700&display=swap">
+    <link rel="icon" type="image/png" href=".\a-logo.jpg">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+        }
+
+        :root {
+            --primary: #6a11cb;
+            --primary-dark: #4c0fa3;
+            --accent: #ff9800;
+            --bg-light: #f5f7fa;
+        }
+
+        /* Header Styles */
+        @import url('https://fonts.googleapis.com/css2?family=Science+Gothic:wght@100..900&display=swap');
+
+        header {
+
+            /* bold and premium */
+            background-color: var(--primary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .goticfont {
+            font-family: 'Science Gothic', sans-serif;
+            font-weight: 600;
+            font-size: 4rem;
+            /* adjust: 3rem or 3.5rem if too large */
+            letter-spacing: 2px;
+            color: #e5e5e5;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 0;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 50px 20px;
+            /* background: url('hero-bg.jpg') no-repeat center center/cover; */
+            background: linear-gradient(135deg, #e9e4f0, #d3cce3);
+            color: rgb(16, 1, 1);
+        }
+
+        .hero h2 {
+            font-size: 5.2rem;
+            margin: 10px 0;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .hero button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            /* background-color: #ff5722; */
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .hero button:hover {
+            background-color: #e64a19;
+        }
+
+        .search-bar {
+            text-align: center;
+            padding: 20px;
+            border-radius: 30px;
+            /* max-width: 100px; */
+        }
+
+        .search-bar input {
+            width: 60%;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border-radius: 30px;
+            border: 2px solid #ccc;
+            transition: 0.3s;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Product Card Styles */
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(106, 17, 203, 0.25);
+        }
+
+        .product-image {
+            max-width: 100%;
+            height: 200px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .product-title {
+            font-size: 1.5rem;
+            margin: 10px 0;
+        }
+
+        .product-description {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            color: #666;
+        }
+
+        .ar-button {
+            padding: 10px 20px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .ar-button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Footer Styles */
+        footer ul {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        footer ul li {
+            list-style: none;
+
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: rgb(16, 16, 52);
+            color: white;
+            position: relative;
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .blurrit {
+            color: rgb(22, 30, 74);
+            font-size: small;
+        }
+
+        /* Media Queries for larger screens */
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 3.5rem;
+            }
+
+            .hero h2 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.5rem;
+            }
+
+            .product-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <h1 id="goticfont">AR-Powered Product Preview</h1>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h2>Experience Products Like Never Before</h2>
+        <p>View and interact with your favorite products in your own space with our AR viewer.</p>
+        <button onclick="scrollToProducts()">Explore Products</button>
+    </section>
+    <div class="search-bar">
+        <input type="text" placeholder="Search your product..." onkeyup="searchProducts(this.value)">
+    </div>
+    <!-- Product Grid -->
+    <div class="product-grid" id="products">
+        <!-- Product 1 -->
+        <div class="product-card">
+            <img class="product-image" src="WhatsApp Image 2024-10-09 at 23.04.02_31f77920.jpg" alt="Product 1 Image">
+            <h2 class="product-title">LED screen</h2>
+            <p class="product-description">A great product for your needs. Discover its features and view in AR.</p>
+            <button class="ar-button">Add To Cart</button>
+            <button class="ar-button" onclick="gotodetail('led_screen')">Check</button>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card">
+            <img class="product-image" src="WhatsApp Image 2024-10-09 at 22.57.09_151d4568.jpg" alt="Product 2 Image">
+            <h2 class="product-title">Arm chair</h2>
+            <p class="product-description">Experience the innovation behind this amazing product. Try it in AR!</p>
+            <button class="ar-button">Add To Cart</button>
+            <button class="ar-button" onclick="gotodetail('arm_chair')">Check</button>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card">
+            <img class="product-image" src="WhatsApp Image 2024-10-09 at 22.57.56_3929ba98.jpg" alt="Product 3 Image">
+            <h2 class="product-title">Refrigerator</h2>
+            <p class="product-description">Enhance your life with this product. See it in your space with AR.</p>
+            <button class="ar-button">Add To Cart</button>
+            <button class="ar-button" onclick="gotodetail('refrigerator')">Check</button>
+        </div>
+        <!-- Product 4 -->
+        <div class="product-card">
+            <img class="product-image" src="WhatsApp Image 2024-10-09 at 23.36.25_4f42f6d3.jpg" alt="Product 4 Image">
+            <h2 class="product-title">Smart Phone</h2>
+            <p class="product-description">Enhance your life with this product. See it in your space with AR.</p>
+            <button class="ar-button">Add To Cart</button>
+            <button class="ar-button" onclick="gotodetail('smart_phone')">Check</button>
+        </div>
+
+
+        <!-- Add more products as needed -->
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <ul>
+            <li>Get to Know Us</li>
+            <li class="Blurrit">About ecommerce</li>
+            <li class="Blurrit">Press Releases</li>
+        </ul>
+        <ul>
+            <li>Connect with Us</li>
+            <li class="Blurrit">Facebook</li>
+            <li class="Blurrit">Twitter</li>
+            <li class="Blurrit">Instagram</li>
+        </ul>
+        <ul>
+            <li>Make Money with Us</li>
+            <li class="Blurrit">Protect and Build Your Brand</li>
+            <li class="Blurrit">Become an Affiliate</li>
+            <li class="Blurrit">Fulfilment by Amazon</li>
+            <li class="Blurrit">Advertise Your Products</li>
+        </ul>
+        <ul>
+            <li>Terms & Privacy</li>
+        </ul>
+        <ul>
+            <li>Let Us Help You</li>
+            <li class="Blurrit">Your Account</li>
+            <li class="Blurrit">Returns Centre</li>
+            <li class="Blurrit">Recalls and Product Safety Alerts</li>
+            <li class="Blurrit">100% Purchase Protection</li>
+        </ul>
+        <p>&copy; 2024 AR Product Viewer. All rights reserved.</p>
+    </footer>
+
+    <model-viewer id="3d-model" ar-modes="scene-viewer quick-look webxr" ar disable-tap disable-pan camera-controls
+        touch-action="pan-y" auto-rotate xr-environment style="display:none;"></model-viewer>
+
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+    <script>
+        function gotodetail(productid) {
+            window.location.href = "item.html?id=" + productid;
+        }
+        // Function to scroll to the product section
+        function scrollToProducts() {
+            document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+
+</html>

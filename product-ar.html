@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product AR View</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.js"></script>
+</head>
+<body style="margin:0; overflow:hidden;">
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const model = urlParams.get("model");
+</script>
+
+<a-scene embedded arjs>
+    <a-entity id="modelEntity"></a-entity>
+</a-scene>
+
+<script>
+    document.getElementById("modelEntity").setAttribute("gltf-model", model);
+</script>
+</body>
+</html>
+<!-- NOt using this one  -->

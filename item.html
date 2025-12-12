@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item-page-product</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .productdetail {
+            max-width: 1000px;
+            margin: auto;
+            background-color: #e3f2fd;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        /* Desktop layout */
+        .forflex {
+            display: flex;
+            padding: 40px;
+            gap: 30px;
+            justify-content: space-around;
+        }
+
+        /* Image adjustments */
+        .forflex img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+        }
+
+        #title {
+            color: whitesmoke;
+        }
+
+        /* Responsive layout for small screens */
+        @media (max-width: 768px) {
+            .forflex {
+                flex-direction: column;
+                padding: 20px;
+                text-align: center;
+            }
+
+            .forflex img {
+                max-width: 90%;
+                margin: auto;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .forflex {
+                padding: 10px;
+            }
+
+            img {
+                max-width: 100%;
+            }
+
+            button {
+                width: 100%;
+                margin-top: 12px;
+            }
+        }
+        @media (max-width: 480px) {
+            footer ul {
+                display: flex;
+                gap: 20px;
+            }
+            footer ul li{
+                display: flex;
+                flex-direction: column;
+            }
+        }
+        body {
+            font-family: Arial;
+            
+        }
+
+        .ar-button {
+            padding: 10px 20px;
+            background-color: #3949ab;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        .ar-button:hover {
+            background-color:#3949ab;
+        }
+        #title,
+        h3 {
+            color: #0d47a1;
+        }
+        .price{
+            font-weight: bolder;
+        }
+        ul li,
+        #description {
+            color: #1a237e;
+            font-weight: bolder;
+        }
+        .aboutthis{
+            padding: 50px;
+        }
+        footer ul {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        footer ul li {
+            list-style: none;
+            color: whitesmoke;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: rgb(16, 16, 52);
+            color: white;
+            position: relative;
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .blurrit {
+            color: rgb(22, 30, 74);
+            font-size: small;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="productdetail">
+        <div class="forflex">
+            <div>
+                <img id="image" src="" alt="">
+            </div>
+            <div>
+                <h1 id="title"></h1>
+                <p id="description"></p>
+                <hr>
+                <span class="price" id="price"></span> 
+                <span id="dummyprice" style="text-decoration: line-through; text-decoration-thickness: 3px;" ></span> <br>
+                <button class="ar-button" onclick="load3DModel()">View in AR</button>
+                <button class="ar-button" onclick="goback()">GO BACK</button>
+                <button class="ar-button">Add to Cart</button>
+                <span style="font-size: 22px; cursor: pointer;">❤️</span>
+                <model-viewer id="3d-model" ar-modes="scene-viewer quick-look webxr" ar disable-tap disable-pan
+                    camera-controls touch-action="pan-y" auto-rotate xr-environment
+                    style="display:none;"></model-viewer>
+            </div>
+        </div>
+        <div class="aboutthis">
+            <h3>About this item</h3>
+            <ul>
+                <li id="firstli"></li>
+                <li id="secondli"></li>
+                <li id="thirdli"></li>
+                <li id="fourthli"></li>
+            </ul>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer>
+        <ul>
+            <li>Get to Know Us</li>
+            <li class="Blurrit">About ecommerce</li>
+            <li class="Blurrit">Press Releases</li>
+        </ul>
+        <ul>
+            <li>Connect with Us</li>
+            <li class="Blurrit">Facebook</li>
+            <li class="Blurrit">Twitter</li>
+            <li class="Blurrit">Instagram</li>
+        </ul>
+        <ul>
+            <li>Make Money with Us</li>
+            <li class="Blurrit">Protect and Build Your Brand</li>
+            <li class="Blurrit">Become an Affiliate</li>
+            <li class="Blurrit">Fulfilment by Amazon</li>
+            <li class="Blurrit">Advertise Your Products</li>
+        </ul>
+        <ul>
+            <li>Terms & Privacy</li>
+        </ul>
+        <ul>
+            <li>Let Us Help You</li>
+            <li class="Blurrit">Your Account</li>
+            <li class="Blurrit">Returns Centre</li>
+            <li class="Blurrit">Recalls and Product Safety Alerts</li>
+            <li class="Blurrit">100% Purchase Protection</li>
+        </ul>
+        <p>&copy; 2024 AR Product Viewer. All rights reserved.</p>
+    </footer>
+
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</body>
+<script>
+    const products = {
+        led_screen: {
+            title: "acer 127 cm (50 inches) Ultra I Series 4K Ultra HD Smart LED Google TV AR50UDGGU2875BD",
+            image: "WhatsApp Image 2024-10-09 at 23.04.02_31f77920.jpg",
+            description: "High-quality LED display with stunning colors.",
+            price: "35,999/-",
+            dummyprice: "50,000/-",
+            glbfile: "led_tv_free.glb",
+            aboutthis: {
+                firstli: "Resolution: Ultra HD (3840X2160) | Refresh Rate: 60 hertz",
+                secondli: "Sound: 30 Watts Speakers Output | Dolby Atmos | Mutiple Sound Modes: Standard, Music, Cinema, News, Personal",
+                thirdli: "Display: Super Bright Panel | 350 nits Brightness | HDR 10 | 5000:1 Dynamic Contrast Ratio | Noise reduction | Digital Noise Reduction (DNR) | Multiple Picture Modes: Standard, Dynamic, Movie, ECO, Gentle, Vivid, Sport, Game, Personal",
+                fourthli: "Warranty Information: 1-year warranty from date of purchase on the television set and 1-year warranty on the remote control provided by brand. Warranty claims can be processed using the Amazon e-invoice"
+            }
+        },
+        arm_chair: {
+            title: "Relaxation Chair Made up of Strong and Durable Frame Home Chair Modern Design for Comfort Seating (1, Brown, Double Pipe Chrome Frame)",
+            image: "WhatsApp Image 2024-10-09 at 22.57.09_151d4568.jpg",
+            description: "Experience the innovation behind this amazing product. Try it in  AR!",
+            price: "5,499/-",
+            dummyprice: "7,000/-",
+            glbfile: "arm_chair__furniture.glb",
+            aboutthis: {
+                firstli: "DURABLE DESIGN : Featuring a cast iron heavy duty metal frame with gently curved & padded armrests for stability.",
+                secondli: "BONDED LEATHERETTE : Smooth, durable & bonded leatherette upholstery covers both cushioned back and cushioned seat of the chair.",
+                thirdli: "PROFESSIONAL LOOK : This guest chair offers a professional appearance in any office setting such as a reception area, in front of a desk, or at a conference table.",
+                fourthli: "ANTI SKID & EASY TO CLEAN : Leg of the chairs comes with the protector pads to the bottoms to prevent the floor from scratches. And easy to clean with dry cloth."
+            }
+        },
+        refrigerator: {
+            title: "Whirlpool 184 L 5 Star Direct-Cool Single Door Refrigerator with Intellisense Inverter Compressor (205 WDE ROY 5S Inv SAPPHIRE SPRING-Z)",
+            image: "WhatsApp Image 2024-10-09 at 22.57.56_3929ba98.jpg",
+            description: "Energy-efficient refrigerator with large capacity.",
+            price: "45,999/-",
+            dummyprice: "60,000/-",
+            glbfile: "fridgesilent_hill.glb",
+            aboutthis: {
+                firstli: "Storage capacity: 215 L, suitable for a medium size family",
+                secondli: "Frost Free Multi-Door Refrigerator: Energy Efficient",
+                thirdli: "Warranty : 1 year on product, 10 years on compressor",
+                fourthli: "Brand-Specific Features : ZEOLITE TECHNOLOGY, MOISTURE RETENTION TECHNOLOGY, FRUIT CRISPER, DELI ZONE, 32 L LARGE STORAGE, AIR BOOSTER, ENERGY EFFICIENT"
+            }
+        },
+        smart_phone: {
+            title: "Samsung Galaxy S24 Ultra 5G AI Smartphone with Galaxy AI (Titanium Violet, 12GB, 512GB Storage), Snapdragon 8 Gen 3, 200 MP Camera with ProVisual Engine and 5000mAh Battery",
+            image: "WhatsApp Image 2024-10-09 at 23.36.25_4f42f6d3.jpg",
+            description: "Premimum phone Samsung",
+            price: "1,35,999/-",
+            dummyprice: "1,50,000/-",
+            glbfile: 'samsung_s23_ultra_free.glb',
+            aboutthis: {
+                firstli: "Galaxy AI - Welcome to the era of mobile AI. With Galaxy S24 Ultra and One UI in your hands, you can unleash completely new levels of creativity, productivity and possibility.",
+                secondli: "Titanium Frame - Meet Galaxy S24 Ultra, the ultimate form of Galaxy Ultra built with a new titanium exterior and a 17.25cm flat display. It is an absolute marvel of design.",
+                thirdli: "Epic Camera - With the most megapixels on a Galaxy smartphone ever (200MP) and AI processing, Galaxy S24 Ultra sets the industry standard for image quality every time you hit the shutter. Also, the new ProVisual engine recognizes objects, improves color tone, reduces noise and brings out every detail.",
+                fourthli: "Built-in S Pen and Security - Experience seamless control and creativity, as the S Pen transforms your device into a versatile tool for productivity and artistry. While Knox protection and Samsung Wallet keep your data and payments safe."
+            }
+        }
+    }
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+
+    const product = products[id];
+
+    if (product) {
+        document.getElementById("title").innerText = product.title;
+        document.getElementById("image").src = product.image;
+        document.getElementById("description").innerText = product.description;
+        document.getElementById("price").innerText = product.price;
+        document.getElementById("dummyprice").innerText = product.dummyprice;
+        const filelocationofglb = product.glbfile;
+        function load3DModel() {
+            const modelViewer = document.getElementById('3d-model');
+            modelViewer.setAttribute('src', filelocationofglb); // Dynamically load GLB model
+            modelViewer.style.display = 'block';
+            modelViewer.activateAR(); // Start AR session
+        }
+        document.getElementById("firstli").textContent = product.aboutthis.firstli;
+        document.getElementById("secondli").innerHTML = product.aboutthis.secondli;
+        document.getElementById("thirdli").innerHTML = product.aboutthis.thirdli;
+        document.getElementById("fourthli").innerHTML = product.aboutthis.fourthli;
+    }
+
+    function goback() {
+        window.history.back();
+    }
+</script>
+
+</html>
